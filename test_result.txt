@@ -1,0 +1,79 @@
+﻿ERROR:hwp_parser:COM 자동화 오류: (-2147221005, '잘못된 클래스 문자열입니다.', None, None)
+WARNING:hwp_parser:COM 추출 실패: COM 자동화 오류: (-2147221005, '잘못된 클래스 문자열입니다.', None, None). olefile 파싱 시도합니다.
+INFO:question_extractor:정답 매핑 0건 추출: {}
+WARNING:question_extractor:문항 시작 패턴을 찾을 수 없습니다.
+INFO:question_extractor:문항 블록 0개 탐지
+
+============================================================
+?뚯씪: 2025??以?_1?숆린 湲곕쭚_遊됲솴以묓븰援?異⑹껌?⑤룄 怨듭＜???숈븘(?ㅼ젙誘?.hwp
+============================================================
+?깃났: True
+諛⑸쾿: olefile
+?쒓컙: 85ms
+釉붾줉 ?? 195
+
+--- ?띿뒪??誘몃━蹂닿린 (泥섏쓬 2000?? ---
+疫곁겎?ㅶ‥逆닸솺麗좂몾
+轢졿씟
+2025??以? ?곸뼱 1?숆린 湲곕쭚湲곗텧 遊됲솴以묓븰援?
+?숈븘(?ㅼ젙誘?
+轢졿씟
+? ?ъ씠?몄뿉 臾대떒 寃뚯떆, 蹂듭젣瑜?湲덉??⑸땲??
+<異쒖젣 踰붿쐞>
+援먭낵?? 2怨? 3怨? 4怨?
+紐⑥쓽怨좎궗:
+遺援먯옱:
+?ㅼ쓬 ??붿쓽 鍮덉뭏???ㅼ뼱媛?留먮줈 媛???곸젅??寃껋???졿빇 [3怨?
+疫?뀾 ??
+Charlie: You look really nervous. Is your piano competition today?
+Amy: Yes, this afternoon. I have practiced a lot, but I am still worried.
+Charlie: Oh, do not worry. You will be amazing. __________________________________
+??It is on me.??Break a leg!
+??Pulling my leg!??Why the long face?
+??You are couch potato.
+?ㅼ쓬 ??붿쓽 鍮덉뭏???ㅼ뼱媛?留먮줈 媛???곸젅??寃껋???졿빇 [3怨?
+疫?뀾 ??
+Jaden: How was your trip to the amusement park last weekend?
+Hailey: It was very awesome! My friend and I tried many fun games and ate lots of good food. ______________________________
+??Hold your horses.
+??It is raining cats and dogs.
+??That was not my cup of tea.
+??We really had a whale of a time.
+??That is why we are feeling under the weather.
+?ㅼ쓬 ??붿쓽 鍮덉뭏???ㅼ뼱媛?留먮줈 媛???곸젅??寃껋???졿빇 [2怨?
+疫?뀾 ??
+Steve: Welcome to Sandwich Place. What would you like to order?
+Dustin: I would like to have a hamburger, and she will have a chicken sandwich.
+Steve: Would you like anything else?
+Dustin: One salad, please.
+Steve: OK, then will that be all?
+Dustin: No, I would like to order two bottles of water.
+Steve: _________________________________
+Dustin: It is for here, please.
+Steve: The total comes to 12 dollars.
+Dustin: OK. Here you are.
+??Can I pay now?
+??Is the Wi-Fi free here?
+??Is it for here or to go?
+??Please make it very spicy.
+??Can I see the menu after I order?
+?ㅼ쓬 ??붿쓽 鍮덉뭏???ㅼ뼱媛?留먮줈 媛???곸젅??寃껋???졿빇 [4怨?
+疫?뀾 ??
+Eliza: I'd like to get a refund for this cap.
+Gracy: _________________________________
+Lucy: No, I don't. I received it as a gift.
+Clerk: If you don't have the receipt, then, it's not          possible to get a refund.
+Eliza: I see.
+??May I help you?
+??What color would you like?
+??Do you have a receipt for it?
+??Is there anything wrong with it?
+??What size would you like to exchange it for?
+?ㅼ쓬 以?臾몃쾿?곸쑝濡??녹? 臾몄옣???졿빇 [2怨?
+疫?뀾 ??
+??I let my brother watch TV before dinner.
+??She made her friend jo
+
+--- 臾명빆 異붿텧 ---
+珥?臾명빆: 0
+?뺣떟 ?뱀뀡 諛쒓껄: True

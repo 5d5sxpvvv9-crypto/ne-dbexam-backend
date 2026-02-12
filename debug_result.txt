@@ -1,0 +1,137 @@
+﻿?뚯씪: C:\DBexam\0206_02\2025??以?_1?숆린 湲곕쭚_遊됲솴以묓븰援?異⑹껌?⑤룄 怨듭＜???숈븘(?ㅼ젙誘?.hwp
+
+=== OLE Streams ===
+  HwpSummaryInformation (517 bytes)
+  BinData/BIN0001.WMF (92799 bytes)
+  BinData/BIN0002.png (8712 bytes)
+  BodyText/Section0 (17463 bytes)
+  DocInfo (1469 bytes)
+  DocOptions/_LinkDoc (524 bytes)
+  FileHeader (256 bytes)
+  PrvImage (3903 bytes)
+  PrvText (2044 bytes)
+  Scripts/DefaultJScript (194 bytes)
+  Scripts/JScriptVersion (13 bytes)
+
+Compressed: True
+Section0 decompressed: 65675 bytes
+
+--- PARA_TEXT #1 (size=34, level=1) ---
+  Hex: 02 00 64 63 65 73 00 00 00 00 00 00 00 00 02 00 02 00 64 6c 6f 63 00 00 00 00 00 00 00 00 02 00 0d 00
+  Text: [CTRL2][CTRL0][CTRL2][CTRL0][CR]
+
+--- PARA_TEXT #2 (size=66, level=1) ---
+  Hex: 15 00 70 6e 67 70 00 00 00 00 00 00 00 00 15 00 10 00 64 61 65 68 00 00 00 00 00 00 00 00 10 00 10 00 74 6f 6f 66 00 00 00 00 00 00 00 00 10 00 0b 00 20 6c 62 74 00 00 00 00 00 00 00 00 0b 00 0d 00
+  Text: [C21]疫곁겎[CTRL0][C21][C16]?ㅶ‥[CTRL0][C16][C16]逆닸솺[CTRL0][C16][C11]麗좂몾[CTRL0][C11][CR]
+
+--- PARA_TEXT #3 (size=18, level=3) ---
+  Hex: 0b 00 20 6f 73 67 00 00 00 00 00 00 00 00 0b 00 0d 00
+  Text: [C11]轢졿씟[CTRL0][C11][CR]
+
+--- PARA_TEXT #4 (size=54, level=7) ---
+  Hex: 32 00 30 00 32 00 35 00 44 b1 20 00 11 c9 33 00 20 00 01 c6 b4 c5 20 00 31 00 59 d5 30 ae 20 00 30 ae d0 b9 30 ae 9c cd 20 00 09 bd 69 d6 11 c9 59 d5 50 ad 0d 00
+  Text: 2025??以? ?곸뼱 1?숆린 湲곕쭚湲곗텧 遊됲솴以묓븰援?CR]
+
+--- PARA_TEXT #5 (size=16, level=7) ---
+  Hex: d9 b3 44 c5 28 00 24 c7 15 c8 f8 bb 29 00 0d 00
+  Text: ?숈븘(?ㅼ젙誘?[CR]
+
+--- PARA_TEXT #6 (size=18, level=3) ---
+  Hex: 0b 00 20 6f 73 67 00 00 00 00 00 00 00 00 0b 00 0d 00
+  Text: [C11]轢졿씟[CTRL0][C11][CR]
+
+--- PARA_TEXT #7 (size=50, level=3) ---
+  Hex: c0 d0 20 00 ac c0 74 c7 b8 d2 d0 c5 20 00 34 bb e8 b2 20 00 8c ac dc c2 2c 00 20 00 f5 bc 1c c8 7c b9 20 00 08 ae c0 c9 69 d5 c8 b2 e4 b2 2e 00 0d 00
+  Text: ? ?ъ씠?몄뿉 臾대떒 寃뚯떆, 蹂듭젣瑜?湲덉??⑸땲??[CR]
+
+--- PARA_TEXT #8 (size=18, level=3) ---
+  Hex: 20 00 3c 00 9c cd 1c c8 20 00 94 bc 04 c7 3e 00 0d 00
+  Text:  <異쒖젣 踰붿쐞>[CR]
+
+--- PARA_TEXT #9 (size=32, level=3) ---
+  Hex: 50 ad fc ac 1c c1 3a 00 20 00 32 00 fc ac 2c 00 20 00 33 00 fc ac 2c 00 20 00 34 00 fc ac 0d 00
+  Text: 援먭낵?? 2怨? 3怨? 4怨?CR]
+
+--- PARA_TEXT #10 (size=14, level=3) ---
+  Hex: a8 ba 58 c7 e0 ac ac c0 3a 00 20 00 0d 00
+  Text: 紐⑥쓽怨좎궗: [CR]
+
+--- PARA_TEXT #11 (size=12, level=3) ---
+  Hex: 80 bd 50 ad ac c7 3a 00 20 00 0d 00
+  Text: 遺援먯옱: [CR]
+
+--- PARA_TEXT #12 (size=84, level=1) ---
+  Hex: e4 b2 4c c7 20 00 00 b3 54 d6 58 c7 20 00 48 be 78 ce d0 c5 20 00 e4 b4 b4 c5 08 ac 20 00 d0 b9 5c b8 20 00 00 ac a5 c7 20 00 01 c8 08 c8 5c d5 20 00 83 ac 40 c7 3f 00 11 00 20 20 6e 65 00 00 00 00 00 00 00 00 11 00 20 00 5b 00 33 00 fc ac 5d 00 0d 00
+  Text: ?ㅼ쓬 ??붿쓽 鍮덉뭏???ㅼ뼱媛?留먮줈 媛???곸젅??寃껋??[C17]?졿빇[CTRL0][C17] [3怨?[CR]
+
+--- PARA_TEXT #13 (size=22, level=3) ---
+  Hex: 12 00 6f 6e 74 61 00 00 00 00 00 00 00 00 12 00 20 00 61 24 0d 00
+  Text: [C18]疫?뀾[CTRL0][C18] ??CR]
+
+--- PARA_TEXT #14 (size=134, level=1) ---
+  Hex: 43 00 68 00 61 00 72 00 6c 00 69 00 65 00 3a 00 20 00 59 00 6f 00 75 00 20 00 6c 00 6f 00 6f 00 6b 00 20 00 72 00 65 00 61 00 6c 00 6c 00 79 00 20 00 6e 00 65 00 72 00 76 00 6f 00 75 00 73 00 2e 00 20 00 49 00 73 00 20 00 79 00 6f 00 75 00 72 00 20 00 70 00 69 00 61 00 6e 00 6f 00 20 00 63 00 6f 00
+  Text: Charlie: You look really nervous. Is your piano competition today?[CR]
+
+--- PARA_TEXT #15 (size=148, level=1) ---
+  Hex: 41 00 6d 00 79 00 3a 00 20 00 59 00 65 00 73 00 2c 00 20 00 74 00 68 00 69 00 73 00 20 00 61 00 66 00 74 00 65 00 72 00 6e 00 6f 00 6f 00 6e 00 2e 00 20 00 49 00 20 00 68 00 61 00 76 00 65 00 20 00 70 00 72 00 61 00 63 00 74 00 69 00 63 00 65 00 64 00 20 00 61 00 20 00 6c 00 6f 00 74 00 2c 00 20 00
+  Text: Amy: Yes, this afternoon. I have practiced a lot, but I am still worried.[CR]
+
+--- PARA_TEXT #16 (size=166, level=1) ---
+  Hex: 43 00 68 00 61 00 72 00 6c 00 69 00 65 00 3a 00 20 00 4f 00 68 00 2c 00 20 00 64 00 6f 00 20 00 6e 00 6f 00 74 00 20 00 77 00 6f 00 72 00 72 00 79 00 2e 00 20 00 59 00 6f 00 75 00 20 00 77 00 69 00 6c 00 6c 00 20 00 62 00 65 00 20 00 61 00 6d 00 61 00 7a 00 69 00 6e 00 67 00 2e 00 20 00 5f 00 5f 00
+  Text: Charlie: Oh, do not worry. You will be amazing. __________________________________[CR]
+
+--- PARA_TEXT #17 (size=90, level=1) ---
+  Hex: 60 24 20 00 49 00 74 00 20 00 69 00 73 00 20 00 6f 00 6e 00 20 00 6d 00 65 00 2e 00 09 00 c6 03 00 00 00 01 00 00 00 00 00 00 09 00 09 00 a0 0f 00 00 00 01 00 00 00 00 00 00 09 00 61 24 20 00 42 00 72 00 65 00 61 00 6b 00 20 00 61 00 20 00 6c 00 65 00 67 00 21 00 0d 00
+  Text: ??It is on me.[CTRL9][CTRL0][CTRL9][CTRL0]??Break a leg![CR]
+
+--- PARA_TEXT #18 (size=92, level=1) ---
+  Hex: 62 24 20 00 50 00 75 00 6c 00 6c 00 69 00 6e 00 67 00 20 00 6d 00 79 00 20 00 6c 00 65 00 67 00 21 00 09 00 22 0e 00 00 00 01 00 00 00 00 00 00 09 00 63 24 20 00 57 00 68 00 79 00 20 00 74 00 68 00 65 00 20 00 6c 00 6f 00 6e 00 67 00 20 00 66 00 61 00 63 00 65 00 3f 00 0d 00
+  Text: ??Pulling my leg![CTRL9][CTRL0]??Why the long face?[CR]
+
+--- PARA_TEXT #19 (size=48, level=1) ---
+  Hex: 64 24 20 00 59 00 6f 00 75 00 20 00 61 00 72 00 65 00 20 00 63 00 6f 00 75 00 63 00 68 00 20 00 70 00 6f 00 74 00 61 00 74 00 6f 00 2e 00 0d 00
+  Text: ??You are couch potato.[CR]
+
+--- PARA_TEXT #20 (size=84, level=1) ---
+  Hex: e4 b2 4c c7 20 00 00 b3 54 d6 58 c7 20 00 48 be 78 ce d0 c5 20 00 e4 b4 b4 c5 08 ac 20 00 d0 b9 5c b8 20 00 00 ac a5 c7 20 00 01 c8 08 c8 5c d5 20 00 83 ac 40 c7 3f 00 11 00 20 20 6e 65 00 00 00 00 00 00 00 00 11 00 20 00 5b 00 33 00 fc ac 5d 00 0d 00
+  Text: ?ㅼ쓬 ??붿쓽 鍮덉뭏???ㅼ뼱媛?留먮줈 媛???곸젅??寃껋??[C17]?졿빇[CTRL0][C17] [3怨?[CR]
+
+--- PARA_TEXT #21 (size=22, level=3) ---
+  Hex: 12 00 6f 6e 74 61 00 00 00 00 00 00 00 00 12 00 20 00 63 24 0d 00
+  Text: [C18]疫?뀾[CTRL0][C18] ??CR]
+
+--- PARA_TEXT #22 (size=122, level=1) ---
+  Hex: 4a 00 61 00 64 00 65 00 6e 00 3a 00 20 00 48 00 6f 00 77 00 20 00 77 00 61 00 73 00 20 00 79 00 6f 00 75 00 72 00 20 00 74 00 72 00 69 00 70 00 20 00 74 00 6f 00 20 00 74 00 68 00 65 00 20 00 61 00 6d 00 75 00 73 00 65 00 6d 00 65 00 6e 00 74 00 20 00 70 00 61 00 72 00 6b 00 20 00 6c 00 61 00 73 00
+  Text: Jaden: How was your trip to the amusement park last weekend?[CR]
+
+--- PARA_TEXT #23 (size=248, level=1) ---
+  Hex: 48 00 61 00 69 00 6c 00 65 00 79 00 3a 00 20 00 49 00 74 00 20 00 77 00 61 00 73 00 20 00 76 00 65 00 72 00 79 00 20 00 61 00 77 00 65 00 73 00 6f 00 6d 00 65 00 21 00 20 00 4d 00 79 00 20 00 66 00 72 00 69 00 65 00 6e 00 64 00 20 00 61 00 6e 00 64 00 20 00 49 00 20 00 74 00 72 00 69 00 65 00 64 00
+  Text: Hailey: It was very awesome! My friend and I tried many fun games and ate lots of good food. ______________________________[CR]
+
+--- PARA_TEXT #24 (size=40, level=1) ---
+  Hex: 60 24 20 00 48 00 6f 00 6c 00 64 00 20 00 79 00 6f 00 75 00 72 00 20 00 68 00 6f 00 72 00 73 00 65 00 73 00 2e 00 0d 00
+  Text: ??Hold your horses.[CR]
+
+--- PARA_TEXT #25 (size=62, level=1) ---
+  Hex: 61 24 20 00 49 00 74 00 20 00 69 00 73 00 20 00 72 00 61 00 69 00 6e 00 69 00 6e 00 67 00 20 00 63 00 61 00 74 00 73 00 20 00 61 00 6e 00 64 00 20 00 64 00 6f 00 67 00 73 00 2e 00 0d 00
+  Text: ??It is raining cats and dogs.[CR]
+
+--- PARA_TEXT #26 (size=60, level=1) ---
+  Hex: 62 24 20 00 54 00 68 00 61 00 74 00 20 00 77 00 61 00 73 00 20 00 6e 00 6f 00 74 00 20 00 6d 00 79 00 20 00 63 00 75 00 70 00 20 00 6f 00 66 00 20 00 74 00 65 00 61 00 2e 00 0d 00
+  Text: ??That was not my cup of tea.[CR]
+
+--- PARA_TEXT #27 (size=70, level=1) ---
+  Hex: 63 24 20 00 57 00 65 00 20 00 72 00 65 00 61 00 6c 00 6c 00 79 00 20 00 68 00 61 00 64 00 20 00 61 00 20 00 77 00 68 00 61 00 6c 00 65 00 20 00 6f 00 66 00 20 00 61 00 20 00 74 00 69 00 6d 00 65 00 2e 00 0d 00
+  Text: ??We really had a whale of a time.[CR]
+
+--- PARA_TEXT #28 (size=96, level=1) ---
+  Hex: 64 24 20 00 54 00 68 00 61 00 74 00 20 00 69 00 73 00 20 00 77 00 68 00 79 00 20 00 77 00 65 00 20 00 61 00 72 00 65 00 20 00 66 00 65 00 65 00 6c 00 69 00 6e 00 67 00 20 00 75 00 6e 00 64 00 65 00 72 00 20 00 74 00 68 00 65 00 20 00 77 00 65 00 61 00 74 00 68 00 65 00 72 00 2e 00 0d 00
+  Text: ??That is why we are feeling under the weather.[CR]
+
+--- PARA_TEXT #29 (size=84, level=1) ---
+  Hex: e4 b2 4c c7 20 00 00 b3 54 d6 58 c7 20 00 48 be 78 ce d0 c5 20 00 e4 b4 b4 c5 08 ac 20 00 d0 b9 5c b8 20 00 00 ac a5 c7 20 00 01 c8 08 c8 5c d5 20 00 83 ac 40 c7 3f 00 11 00 20 20 6e 65 00 00 00 00 00 00 00 00 11 00 20 00 5b 00 32 00 fc ac 5d 00 0d 00
+  Text: ?ㅼ쓬 ??붿쓽 鍮덉뭏???ㅼ뼱媛?留먮줈 媛???곸젅??寃껋??[C17]?졿빇[CTRL0][C17] [2怨?[CR]
+
+--- PARA_TEXT #30 (size=22, level=3) ---
+  Hex: 12 00 6f 6e 74 61 00 00 00 00 00 00 00 00 12 00 20 00 61 24 0d 00
+  Text: [C18]疫?뀾[CTRL0][C18] ??CR]

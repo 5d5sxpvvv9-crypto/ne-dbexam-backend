@@ -1,0 +1,155 @@
+# HWP 영어시험 문항 파싱 규칙 설정 (v2)
+
+# ─── 문항번호 탐지 패턴 ───
+question_number:
+  # "N." 형태 (기울어진 큰 숫자, HWP 추출 시 줄 시작에 나타남)
+  patterns:
+    - '^\s*(\d{1,2})\.\s'
+    - '^\s*(\d{1,2})\s*[\.\)]\s'
+    - '^\[(\d{1,2})\]'
+  # 문장 끝 검증 번호 (문항번호와 동일한 작은 숫자)
+  trailing_verification: true
+
+# ─── 문항(질문) 텍스트 탐지 ───
+question_text:
+  # 객관식 질문 종결 패턴
+  endings:
+    - '것은\?$'
+    - '것\?$'
+    - '문장은\?$'
+    - '개수는\?$'
+    - '질문은\?$'
+    - '단어는\?$'
+    - '곳은\?$'
+    - '고르면\?$'
+    - '인가\?$'
+    - '않은가\?$'
+    - '무엇인가\?$'
+    - '알맞은가\?$'
+    - '올바른가\?$'
+    - '적절한가\?$'
+    # 영어 단어+?는 한글 비율 체크로 처리 (별도 패턴 불필요)
+
+  # 서술형 판별 종결 패턴
+  subjective_endings:
+    - '쓰시오\.'
+    - '완성하시오\.'
+    - '영작하시오\.'
+    - '답하시오\.'
+    - '채우시오\.'
+    - '서술하시오\.'
+    - '설명하시오\.'
+    - '구하시오\.'
+    - '고르시오\.'
+    - '나타내시오\.'
+    - '적으시오\.'
+    - '바꾸시오\.'
+    - '고치시오\.'
+    - '표현하시오\.'
+
+# ─── 보기/선지 탐지 ───
+choices:
+  circled_numbers: ['①', '②', '③', '④', '⑤']
+  circled_letters: ['ⓐ', 'ⓑ', 'ⓒ', 'ⓓ', 'ⓔ']
+  choice_split_pattern: '[①②③④⑤]'
+
+# ─── 서술형 문항 탐지 ───
+subjective:
+  # 서술형 특징: ~시오. 종결 + 선지 없음 + → ____ 답란
+  writing_area_pattern: '^\s*→\s*[_\s]{3,}'
+  # 서술형이면 엑셀 보기 칸 비움
+  clear_choices: true
+
+# ─── 읽기지문 탐지 ───
+reading_passage:
+  english_ratio_threshold: 0.4
+  min_english_sentences: 2
+  # 박스 안 내용 = 지문 (한 문항에 박스 여러 개면 모두 포함)
+  # 박스 라벨 키워드
+  box_labels:
+    - '<예시문>'
+    - '<예문>'
+    - '<보기>'
+    - '<조건>'
+    - '<요약문>'
+
+# ─── 공통지문 탐지 ───
+common_passage:
+  # 공통지문 도입 패턴 (트리거)
+  # "다음 글을 읽고 물음에 답하시오." → 바로 아래 박스 = 공통지문
+  intro_patterns:
+    - '다음 글을 읽고'
+    - '다음을 읽고'
+    - '물음에 답하시오'
+
+  # 공통지문 참조 패턴 (문항이 이걸로 시작하면 공통지문 참조)
+  # "윗글~"로 시작하는 문항 → 공통지문 사용
+  reference_patterns:
+    - '^윗글'
+    - '^위 글'
+    - '^위의 글'
+    - '^위 대화'
+    - '^위의 대화'
+
+  # "윗글~" 문항 아래 추가 박스 → question_text에 포함 (지문 아님)
+  additional_box_to_question: true
+
+  # 공통지문 해당 문항 → 엑셀 셀 병합
+  merge_cells_in_excel: true
+
+# ─── 정답 섹션 탐지 ───
+answer_section:
+  keywords:
+    - '정답'
+    - '정답표'
+    - '정답 및 해설'
+    - '모범답안'
+    - '답안'
+  mapping_patterns:
+    - '(\d+)\s*[:\.\-→]\s*([①②③④⑤\d]+)'
+    - '(\d+)\s*번?\s*[:\.\-→]?\s*([①②③④⑤ⓐⓑⓒⓓⓔ][\s,]*[ⓐⓑⓒⓓⓔ]*)'
+    - '(\d+)\s+([①②③④⑤])'
+
+# ─── 문제 유형 분류 키워드 ───
+question_types:
+  grammar:
+    keywords: ['문법', '어법', '옳은', '옳지 않은', '문법적으로', '문법상']
+  vocabulary:
+    keywords: ['어휘', '단어', '뜻', '의미', '밑줄 친', '다른 뜻']
+  blank:
+    keywords: ['빈칸', '빈 칸', '들어갈']
+  order:
+    keywords: ['순서', '배열', '나열']
+  insertion:
+    keywords: ['삽입', '들어가기', '넣기']
+  topic:
+    keywords: ['주제', '요지', '제목']
+  matching:
+    keywords: ['일치', '내용 일치', '내용과 일치', '적절한 것', '적절하지 않은']
+  conversation:
+    keywords: ['대화', '대화문']
+  reading:
+    keywords: ['읽고 답', '설명으로']
+  writing:
+    keywords: ['기호를', '표현한', '영작']
+
+# ─── 메타데이터 (파일명에서 추출) ───
+metadata:
+  publishers:
+    - '동아'
+    - 'YBM'
+    - '천재'
+    - '비상'
+    - '금성'
+    - '능률'
+    - '지학사'
+    - '미래엔'
+
+# ─── 파일 처리 설정 ───
+processing:
+  max_file_size_mb: 50
+  allowed_extensions: ['.hwp']
+  temp_dir: 'temp_uploads'
+  cleanup_after_minutes: 60
+  max_concurrent: 3
+  timeout_seconds: 120
