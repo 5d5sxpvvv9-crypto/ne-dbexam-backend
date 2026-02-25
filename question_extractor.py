@@ -132,7 +132,7 @@ _SUBJECTIVE_STEMS = [
     '쓰시오', '완성하시오', '영작하시오', '답하시오',
     '채우시오', '서술하시오', '설명하시오', '구하시오',
     '고르시오', '나타내시오', '적으시오', '바꾸시오',
-    '고치시오', '표현하시오',
+    '고치시오', '표현하시오', '변형하시오', '배열하시오',
 ]
 
 
@@ -159,6 +159,8 @@ OBJ_ENDING_RES, SUBJ_ENDING_RES = _build_ending_patterns()
 def _clean_line_suffixes(line: str) -> str:
     clean = re.sub(r'\s*\[\d+[,\s\d]*과\]\s*$', '', line).strip()
     clean = re.sub(r'\s*\(단[^)]*\)\s*$', '', clean).strip()
+    # "(필요시 형태를 변형하시오)" 같은 부가 지시 괄호 제거
+    clean = re.sub(r'\s*\([^)]*(?:하시오|할\s*것|할것)\)\s*$', '', clean).strip()
     clean = re.sub(r'(?<=[가-힣a-zA-Z?.!])\s+\d{1,2}\s*$', '', clean).strip()
     return clean
 
@@ -291,7 +293,9 @@ def _references_previous_passage(text: str) -> bool:
     """
     ref_pats = RULES.get('common_passage', {}).get(
         'reference_patterns',
-        [r'^윗글', r'^위\s*글', r'^위의\s*글', r'^위\s*대화', r'^위의\s*대화'],
+        [r'^윗글', r'^위\s*글', r'^위의\s*글',
+         r'^위\s*대화', r'^위의\s*대화',
+         r'^위\s*독백', r'^위의\s*독백'],
     )
     for pat in ref_pats:
         if re.match(pat, text):
