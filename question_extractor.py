@@ -112,7 +112,7 @@ PATTERN_Q_START = [
 # v2.0 선지 탐지 패턴
 PATTERN_CHOICE = [
     re.compile(r'[①②③④⑤]'),
-    re.compile(r'^\s*\(?[1-5]\)?[.)]\s+'),
+    re.compile(r'^\s*[1-5][.)]\s+'),
     re.compile(r'^\s*[A-Ea-e][.)]\s+'),
 ]
 
@@ -159,8 +159,8 @@ OBJ_ENDING_RES, SUBJ_ENDING_RES = _build_ending_patterns()
 def _clean_line_suffixes(line: str) -> str:
     clean = re.sub(r'\s*\[\d+[,\s\d]*과\]\s*$', '', line).strip()
     clean = re.sub(r'\s*\(단[^)]*\)\s*$', '', clean).strip()
-    # "(필요시 형태를 변형하시오)" 같은 부가 지시 괄호 제거
-    clean = re.sub(r'\s*\([^)]*(?:하시오|할\s*것|할것)\)\s*$', '', clean).strip()
+    clean = re.sub(r'\s*\(정답\s*\d+\s*개\)\s*$', '', clean).strip()
+    clean = re.sub(r'\s*\([^)]*(?:하시오|[가-힣]\s*것)\)\s*$', '', clean).strip()
     clean = re.sub(r'(?<=[가-힣a-zA-Z?.!])\s+\d{1,2}\s*$', '', clean).strip()
     return clean
 
@@ -196,6 +196,8 @@ def _is_question_text(line: str) -> bool:
     if re.match(r'^[•→\-·▶▷]', stripped):
         return False
     if re.match(r'^[①②③④⑤ⓐⓑⓒⓓⓔ]', stripped):
+        return False
+    if re.match(r'^\(\d+\)\s', stripped):
         return False
     if len(stripped) <= 5:
         return False
@@ -245,6 +247,8 @@ def _is_answer_line(line: str) -> bool:
     if not s:
         return False
     if re.match(r'^[①②③④⑤]$', s):
+        return True
+    if re.match(r'^[①②③④⑤](?:\s*,\s*[①②③④⑤])+$', s):
         return True
     if re.match(r'^[ⓐⓑⓒⓓⓔ](?:\s*,\s*[ⓐⓑⓒⓓⓔ])*$', s):
         return True
@@ -350,6 +354,20 @@ _MULTI_PART_ANSWER_RE = re.compile(
 
 def _is_multi_part_answer_line(line: str) -> bool:
     return bool(_MULTI_PART_ANSWER_RE.match(line))
+
+
+def _extract_multi_part_label(line: str) -> Optional[int]:
+    """Extract numeric label from multi-part answer line for reset detection."""
+    m = re.match(r'^\s*\((\d)\)', line)
+    if m:
+        return int(m.group(1))
+    m = re.match(r'^\s*\(([A-Za-z])\)', line)
+    if m:
+        return ord(m.group(1).upper()) - ord('A') + 1
+    m = re.match(r'^\s*([ⓐⓑⓒⓓⓔ])', line)
+    if m:
+        return 'ⓐⓑⓒⓓⓔ'.index(m.group(1)) + 1
+    return None
 
 
 def _split_choices(text: str) -> List[str]:
@@ -1231,11 +1249,15 @@ def extract_questions(full_text: str, filename: str = "") -> ExtractionResult:
             # 다중 줄 인라인 정답 수집: (A)/(B), (1)/(2), ⓐ:/ⓑ: 패턴
             if inline_answer and _is_multi_part_answer_line(inline_answer):
                 answer_parts = [inline_answer]
+                prev_label = _extract_multi_part_label(inline_answer)
                 while i < len(lines):
                     next_l = lines[i].strip()
                     if not next_l:
                         i += 1
                         continue
+                    curr_label = _extract_multi_part_label(next_l)
+                    if curr_label is not None and prev_label is not None and curr_label <= prev_label:
+                        break
                     if (_is_multi_part_answer_line(next_l)
                             and not _is_question_text(next_l)
                             and not _is_passage_intro(next_l)
@@ -1245,6 +1267,8 @@ def extract_questions(full_text: str, filename: str = "") -> ExtractionResult:
                         answer_parts.append(next_l)
                         raw_block_lines.append(next_l)
                         q.source_block_ids.append(i)
+                        if curr_label is not None:
+                            prev_label = curr_label
                         i += 1
                     else:
                         break
