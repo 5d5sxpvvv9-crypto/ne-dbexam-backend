@@ -161,6 +161,8 @@ def _clean_line_suffixes(line: str) -> str:
     clean = re.sub(r'\s*\(단[^)]*\)\s*$', '', clean).strip()
     clean = re.sub(r'\s*\(정답\s*\d+\s*개\)\s*$', '', clean).strip()
     clean = re.sub(r'\s*\([^)]*(?:하시오|[가-힣]\s*것)\)\s*$', '', clean).strip()
+    if re.search(r'시오\.\s*\(', clean):
+        clean = re.sub(r'\s*\([^)]+\)\s*$', '', clean).strip()
     clean = re.sub(r'(?<=[가-힣a-zA-Z?.!])\s+\d{1,2}\s*$', '', clean).strip()
     return clean
 
