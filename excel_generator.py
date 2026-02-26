@@ -31,6 +31,26 @@ COLUMNS = [
 ]
 
 
+def _estimate_line_count(text: str, col_width: int) -> int:
+    """wrap_text 적용 시 셀에 표시될 줄 수 추정 (CJK 문자 폭 2배 반영)"""
+    if not text:
+        return 1
+    total = 0
+    for segment in text.split('\n'):
+        if not segment:
+            total += 1
+            continue
+        display_w = 0
+        for ch in segment:
+            if '\u3000' <= ch <= '\u9fff' or '\uac00' <= ch <= '\ud7af':
+                display_w += 2
+            else:
+                display_w += 1
+        chars_per_line = max(int(col_width * 1.7), 8)
+        total += max(1, (display_w + chars_per_line - 1) // chars_per_line)
+    return total
+
+
 def generate_excel(
     all_questions: List[QuestionData],
     output_path: str,
@@ -159,15 +179,15 @@ def generate_excel(
                     except Exception as e:
                         logger.warning(f"셀 병합 실패 (E{start_row}:E{end_row}): {e}")
 
-    # ── 행 높이 자동 조정 ──
+    # ── 행 높이 자동 조정 (텍스트 wrap 고려) ──
     for r in range(2, row_idx):
         max_lines = 1
         for c in range(1, len(COLUMNS) + 1):
             cell = ws.cell(row=r, column=c)
             if cell.value and isinstance(cell.value, str):
-                lines = cell.value.count('\n') + 1
-                max_lines = max(max_lines, lines)
-        ws.row_dimensions[r].height = max(15, min(max_lines * 15, 300))
+                col_w = COLUMNS[c - 1]["width"]
+                max_lines = max(max_lines, _estimate_line_count(cell.value, col_w))
+        ws.row_dimensions[r].height = max(15, min(max_lines * 15, 409))
 
     # ── 틀 고정 ──
     ws.freeze_panes = "A2"

@@ -221,8 +221,8 @@ def _is_question_text(line: str) -> bool:
             return True
         # English-only exam questions: "Which of the following...", "What does..." etc.
         if (len(clean) > 25
-                and re.match(r'(?i)^(which|what|who|whom|where|when|how|why)\b', clean)
-                and not re.match(r'^[A-Za-z]+\s*:', clean)):
+                and re.search(r'(?i)\b(which|what|who|whom|where|when|how|why)\b', clean)
+                and not re.match(r'^.{1,20}:\s', clean)):
             return True
     return False
 
