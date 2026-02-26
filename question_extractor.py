@@ -158,7 +158,7 @@ OBJ_ENDING_RES, SUBJ_ENDING_RES = _build_ending_patterns()
 # ────────────────────────────────────────────────
 
 def _clean_line_suffixes(line: str) -> str:
-    clean = re.sub(r'\s*\[\d+[,\s\d]*과\]\s*$', '', line).strip()
+    clean = re.sub(r'\s*\[[^\]]{1,20}\]\s*$', '', line).strip()
     clean = re.sub(r'\s*\(단[^)]*\)\s*$', '', clean).strip()
     clean = re.sub(r'\s*\(정답\s*\d+\s*개\)\s*$', '', clean).strip()
     clean = re.sub(r'\s*\([^)]*(?:하시오|[가-힣]\s*것)\)\s*$', '', clean).strip()
