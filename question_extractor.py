@@ -211,8 +211,14 @@ def _is_question_text(line: str) -> bool:
             return True
     if re.search(r'문장의\s*기호를', clean):
         return True
-    if clean.endswith('?') and _korean_ratio(clean) > 0.25:
-        return True
+    if clean.endswith('?'):
+        if _korean_ratio(clean) > 0.25:
+            return True
+        # English-only exam questions: "Which of the following...", "What does..." etc.
+        if (len(clean) > 25
+                and re.match(r'(?i)^(which|what|who|whom|where|when|how|why)\b', clean)
+                and not re.match(r'^[A-Za-z]+\s*:', clean)):
+            return True
     return False
 
 
@@ -331,6 +337,19 @@ def _score_question_candidate(line: str) -> int:
     if re.match(r'^\s*[①②③④⑤]', line):
         score -= 3
     return score
+
+
+_MULTI_PART_ANSWER_RE = re.compile(
+    r'^\s*(?:'
+    r'\([A-Za-z]\)\s*'          # (A), (B), (a), (b)
+    r'|\(\d\)\s*'               # (1), (2)
+    r'|[ⓐⓑⓒⓓⓔ]\s*:\s*'      # ⓐ:, ⓑ:
+    r')'
+)
+
+
+def _is_multi_part_answer_line(line: str) -> bool:
+    return bool(_MULTI_PART_ANSWER_RE.match(line))
 
 
 def _split_choices(text: str) -> List[str]:
@@ -495,13 +514,19 @@ def _find_and_parse_answer_section(lines: List[str]) -> Dict[int, str]:
         if q_num not in answers:
             answers[q_num] = m[1]
 
-    # ── 패턴 4: "N. 텍스트" (서술형 모범답안) ──
-    for line in answer_lines:
+    # ── 패턴 4: "N. 텍스트" (서술형 모범답안, 다중 줄 지원) ──
+    for idx, line in enumerate(answer_lines):
         subj_match = re.match(r'^(\d+)\s*[.:\-→)]+\s+(.{5,})$', line)
         if subj_match:
             q_num = int(subj_match.group(1))
             if q_num not in answers:
-                answers[q_num] = subj_match.group(2).strip()
+                answer_text_parts = [subj_match.group(2).strip()]
+                for j in range(idx + 1, len(answer_lines)):
+                    cont = answer_lines[j].strip()
+                    if re.match(r'^\d+\s*[.:\-→)]', cont):
+                        break
+                    answer_text_parts.append(cont)
+                answers[q_num] = '\n'.join(answer_text_parts)
 
     return answers
 
@@ -1189,7 +1214,7 @@ def extract_questions(full_text: str, filename: str = "") -> ExtractionResult:
                 if _is_answer_line(pa):
                     inline_answer = pa
                     raw_block_lines.append(pa)
-                    q.source_block_ids.append(i)  # v2.0
+                    q.source_block_ids.append(i)
                     i += 1
                 elif (not _is_question_text(pa)
                       and not _is_passage_intro(pa)
@@ -1200,8 +1225,30 @@ def extract_questions(full_text: str, filename: str = "") -> ExtractionResult:
                       and len(pa) < 120):
                     inline_answer = pa
                     raw_block_lines.append(pa)
-                    q.source_block_ids.append(i)  # v2.0
+                    q.source_block_ids.append(i)
                     i += 1
+
+            # 다중 줄 인라인 정답 수집: (A)/(B), (1)/(2), ⓐ:/ⓑ: 패턴
+            if inline_answer and _is_multi_part_answer_line(inline_answer):
+                answer_parts = [inline_answer]
+                while i < len(lines):
+                    next_l = lines[i].strip()
+                    if not next_l:
+                        i += 1
+                        continue
+                    if (_is_multi_part_answer_line(next_l)
+                            and not _is_question_text(next_l)
+                            and not _is_passage_intro(next_l)
+                            and not _is_choice_line(next_l)
+                            and not next_l.startswith('<')
+                            and not _is_writing_area(next_l)):
+                        answer_parts.append(next_l)
+                        raw_block_lines.append(next_l)
+                        q.source_block_ids.append(i)
+                        i += 1
+                    else:
+                        break
+                inline_answer = '\n'.join(answer_parts)
 
             # 지문 + 보기 수집
             passage_lines_q: List[str] = []
@@ -1243,21 +1290,24 @@ def extract_questions(full_text: str, filename: str = "") -> ExtractionResult:
                 # "윗글/위 대화" + 활성 공통지문 그룹 존재 → 공통지문 복사
                 q.passage_group_id = active_passage_group
                 q.common_passage = current_common_passage
-                q.question_passage = ""
-                if passage_lines_q:
-                    question_text += '\n' + '\n'.join(passage_lines_q)
+                # 부가 지문이 있으면 문제지문(question_passage)에 저장
+                q.question_passage = '\n'.join(passage_lines_q) if passage_lines_q else ""
             elif refs_passage:
                 # "윗글/위 대화" 패턴이지만 활성 공통지문 없음
                 # → 후처리(_postprocess_common_passages)에서 이전 문항 지문 복사 예정
                 q.common_passage = ""
                 q.question_passage = '\n'.join(passage_lines_q)
-                # active_passage_group 리셋하지 않음 (후처리 대비)
             else:
-                # 일반 문항 → 문제지문으로 처리
                 q.common_passage = ""
                 q.question_passage = '\n'.join(passage_lines_q)
-                active_passage_group = None
-                current_common_passage = ""
+                # "다음~"으로 시작하면 새 맥락이므로 공통지문 그룹 리셋
+                # 영어 전용 문항 등 "다음"으로 시작하지 않으면 그룹 유지
+                if re.match(r'^다음', question_text):
+                    active_passage_group = None
+                    current_common_passage = ""
+                elif active_passage_group is not None:
+                    q.passage_group_id = active_passage_group
+                    q.common_passage = current_common_passage
 
             q.question_text = question_text
 
