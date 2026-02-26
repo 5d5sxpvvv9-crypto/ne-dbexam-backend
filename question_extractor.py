@@ -470,6 +470,13 @@ def _prescan_question_numbers(lines: List[str]) -> Tuple[List[int], Dict[int, in
         if not stripped or _is_metadata_line(stripped) or _is_end_of_content(stripped):
             continue
         if _is_question_text(stripped):
+            la = i + 1
+            while la < len(lines) and not lines[la].strip():
+                la += 1
+            if la < len(lines):
+                nxt = lines[la].strip()
+                if (_is_choice_line(nxt) and len(nxt) > 5) or _is_writing_area(nxt):
+                    continue
             q_num += 1
             pattern_positions[q_num] = i
 
@@ -1244,7 +1251,7 @@ def extract_questions(full_text: str, filename: str = "") -> ExtractionResult:
                       and not pa.startswith('<')
                       and not _is_writing_area(pa)
                       and not _is_metadata_line(pa)
-                      and len(pa) < 120):
+                      and (len(pa) < 120 or ' 또는 ' in pa)):
                     inline_answer = pa
                     raw_block_lines.append(pa)
                     q.source_block_ids.append(i)
@@ -1289,6 +1296,19 @@ def extract_questions(full_text: str, filename: str = "") -> ExtractionResult:
                     i += 1
                     continue
                 if _is_question_text(nl) or _is_passage_intro(nl) or _is_end_of_content(nl):
+                    if _is_question_text(nl) and not _is_passage_intro(nl) and not _is_end_of_content(nl):
+                        la = i + 1
+                        while la < len(lines) and not lines[la].strip():
+                            la += 1
+                        if la < len(lines):
+                            nxt = lines[la].strip()
+                            nxt_is_real_choice = _is_choice_line(nxt) and len(nxt) > 5
+                            if nxt_is_real_choice or (inline_answer and _is_writing_area(nxt)):
+                                passage_lines_q.append(nl)
+                                raw_block_lines.append(nl)
+                                q.source_block_ids.append(i)
+                                i += 1
+                                continue
                     break
                 if _is_metadata_line(nl):
                     i += 1
