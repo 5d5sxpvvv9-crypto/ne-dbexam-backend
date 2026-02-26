@@ -351,6 +351,7 @@ _MULTI_PART_ANSWER_RE = re.compile(
     r'\([A-Za-z]\)\s*'          # (A), (B), (a), (b)
     r'|\(\d\)\s*'               # (1), (2)
     r'|[ⓐⓑⓒⓓⓔ]\s*:\s*'      # ⓐ:, ⓑ:
+    r'|-\s+'                    # - bullet list
     r')'
 )
 
