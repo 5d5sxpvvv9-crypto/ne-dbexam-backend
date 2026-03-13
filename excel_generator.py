@@ -1,7 +1,7 @@
 """
 엑셀 생성 모듈 (v3)
-9열 고정 포맷:
-  문제번호 | 학교 | 학년 | 출제문항 | 공통지문 | 문제지문 | 보기/조건 | 정답 | 문제유형
+10열 고정 포맷:
+  문제번호 | 학교 | 학년 | 출제문항 | 공통지문 | 문제지문 | 보기/조건 | 정답 | 문제유형 | 문항형태
 
 공통지문 셀은 해당 문항 범위에서 병합 (MergedCellRange)
 """
@@ -17,17 +17,18 @@ from question_extractor import QuestionData
 
 logger = logging.getLogger(__name__)
 
-# 9열 고정 컬럼 정의
+# 10열 고정 컬럼 정의
 COLUMNS = [
-    {"key": "question_number", "header": "문제번호", "width": 10},
-    {"key": "school",          "header": "학교",     "width": 12},
-    {"key": "grade",           "header": "학년",     "width": 8},
-    {"key": "question_text",   "header": "출제문항", "width": 45},
-    {"key": "common_passage",  "header": "공통지문", "width": 55},
-    {"key": "question_passage","header": "문제지문", "width": 55},
-    {"key": "choices",         "header": "보기/조건","width": 45},
-    {"key": "answer",          "header": "정답",     "width": 15},
-    {"key": "question_type",   "header": "문제유형", "width": 20},
+    {"key": "question_number",  "header": "문제번호", "width": 10},
+    {"key": "school",           "header": "학교",     "width": 12},
+    {"key": "grade",            "header": "학년",     "width": 8},
+    {"key": "question_text",    "header": "출제문항", "width": 45},
+    {"key": "common_passage",   "header": "공통지문", "width": 55},
+    {"key": "question_passage", "header": "문제지문", "width": 55},
+    {"key": "choices",          "header": "보기/조건","width": 45},
+    {"key": "answer",           "header": "정답",     "width": 15},
+    {"key": "question_type",    "header": "문제유형", "width": 20},
+    {"key": "question_format",  "header": "문항형태", "width": 12},
 ]
 
 
@@ -127,7 +128,7 @@ def generate_excel(
             cell.font = missing_font if is_placeholder else data_font
             cell.border = thin_border
 
-            if col_def["key"] in ("question_number", "school", "grade", "answer", "question_type"):
+            if col_def["key"] in ("question_number", "school", "grade", "answer", "question_type", "question_format"):
                 cell.alignment = center_alignment
             else:
                 cell.alignment = data_alignment
@@ -148,7 +149,7 @@ def generate_excel(
             cell = ws.cell(row=row_idx, column=col_idx, value=value)
             cell.font = data_font
             cell.border = thin_border
-            if col_def["key"] in ("question_number", "school", "grade", "answer", "question_type"):
+            if col_def["key"] in ("question_number", "school", "grade", "answer", "question_type", "question_format"):
                 cell.alignment = center_alignment
             else:
                 cell.alignment = data_alignment
@@ -215,6 +216,7 @@ def _question_to_row(q: QuestionData) -> dict:
         "choices": q.choices,
         "answer": q.answer,
         "question_type": q.question_type,
+        "question_format": q.question_format,
     }
 
 

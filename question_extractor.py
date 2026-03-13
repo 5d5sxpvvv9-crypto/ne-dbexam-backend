@@ -17,7 +17,7 @@
   - 과분할보다 과포함 허용 (누락 방지 우선)
 
 출력 열 (고정 9열):
-  문제번호 | 학교 | 학년 | 출제문항 | 공통지문 | 문제지문 | 보기/조건 | 정답 | 문제유형
+  문제번호 | 학교 | 학년 | 출제문항 | 공통지문 | 문제지문 | 보기/조건 | 정답 | 문제유형 | 문항형태
 """
 
 import re
@@ -56,6 +56,7 @@ class QuestionData:
     choices: str = ""                  # 보기/조건 (서술형이면 비움)
     answer: str = ""                   # 정답
     question_type: str = ""            # 문제유형 (4가지 고정)
+    question_format: str = ""          # 문항형태 (객관식 / 서술형)
     # ── 내부 메타데이터 ──
     confidence: float = 0.0
     notes: str = ""
@@ -799,6 +800,7 @@ def _recover_missing_question(
 
     q.raw_block_text = first_line
     q.question_type, q.confidence, q.notes = _classify_question_type(q)
+    q.question_format = "서술형" if (_is_subjective_question(question_text) and not choice_lines) else "객관식"
     q.notes += "; [3단계 복구]"
     q.source_block_ids = list(range(line_idx, min(next_boundary, len(lines))))
     q.raw_no = q_num
@@ -1377,6 +1379,7 @@ def extract_questions(full_text: str, filename: str = "") -> ExtractionResult:
 
             q.raw_block_text = '\n'.join(raw_block_lines[:30])
             q.question_type, q.confidence, q.notes = _classify_question_type(q)
+            q.question_format = "서술형" if (_is_subjective_question(question_text) and not choice_lines) else "객관식"
 
             # v2.0 품질 경고
             if len(question_text) < 5:

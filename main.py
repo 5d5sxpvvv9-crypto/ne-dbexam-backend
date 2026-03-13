@@ -122,6 +122,7 @@ def _process_hwp_file(task_id: str, filepath: str, filename: str):
                 "choices": q.choices,
                 "answer": q.answer,
                 "question_type": q.question_type,
+                "question_format": q.question_format,
                 "confidence": q.confidence,
                 "notes": q.notes,
                 "passage_group_id": q.passage_group_id,
@@ -494,7 +495,7 @@ if __name__ == "__main__":
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
-        port=8000,
+        port=18000,
         reload=True,
         log_level="info",
     )
