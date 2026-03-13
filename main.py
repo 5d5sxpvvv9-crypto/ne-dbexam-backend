@@ -354,6 +354,7 @@ async def export_excel(task_ids: Optional[List[str]] = None):
                 choices=q_data["choices"],
                 answer=q_data["answer"],
                 question_type=q_data.get("question_type", ""),
+                question_format=q_data.get("question_format", ""),
                 confidence=q_data.get("confidence", 0),
                 notes=q_data.get("notes", ""),
                 passage_group_id=q_data.get("passage_group_id"),
