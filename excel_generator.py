@@ -8,7 +8,8 @@
 
 import os
 import logging
-from typing import List, Dict
+from collections import OrderedDict
+from typing import List, Dict, Tuple
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, Border, Side, PatternFill
 from openpyxl.utils import get_column_letter
@@ -84,75 +85,74 @@ def generate_excel(
         cell.border = thin_border
         ws.column_dimensions[get_column_letter(col_idx)].width = col_def["width"]
 
-    # ── 문항번호 → QuestionData 매핑 (슬롯 채우기 준비) ──
-    questions_by_no: Dict[int, QuestionData] = {}
-    non_numeric_questions: List[QuestionData] = []  # 번호를 int로 변환 불가한 문항
+    # ── 시험지(학교·학년) 단위로 그룹핑 ──
+    file_groups: OrderedDict[Tuple[str, int], List[QuestionData]] = OrderedDict()
+    non_numeric_questions: List[QuestionData] = []
 
     for q in all_questions:
         try:
-            q_no = int(q.question_number)
+            int(q.question_number)
         except (ValueError, TypeError):
             logger.warning(f"문항 번호를 int로 변환 불가: {q.question_number!r} — 말미에 추가")
             non_numeric_questions.append(q)
             continue
-        # 동일 번호가 이미 있으면 덮어쓰기 (후순위 우선)
-        questions_by_no[q_no] = q
-
-    max_no = max(questions_by_no.keys()) if questions_by_no else 0
+        key = (q.school or "", q.grade or 0)
+        if key not in file_groups:
+            file_groups[key] = []
+        file_groups[key].append(q)
 
     # ── 누락 행 스타일 ──
     missing_font = Font(name="맑은 고딕", size=10, color="999999", italic=True)
 
-    # ── 데이터 행 (1~max_no 슬롯 순회) ──
-    row_idx = 2
-    passage_groups: Dict[int, List[int]] = {}  # group_id → [row_indices]
+    CENTER_KEYS = {"question_number", "school", "grade", "answer", "question_type", "question_format"}
 
-    for no in range(1, max_no + 1):
-        q = questions_by_no.get(no)
-        is_placeholder = q is None
-
-        if is_placeholder:
-            # placeholder(누락행) 생성
-            q = QuestionData(
-                question_number=no,
-                question_text="[MISSING] 문항 누락",
-                question_type="missing",
-            )
-            logger.info(f"누락 문항 placeholder 생성: {no}번")
-
+    def _write_row(ws, row_idx, q, is_placeholder=False):
         values = _question_to_row(q)
-
         for col_idx, col_def in enumerate(COLUMNS, 1):
             value = values.get(col_def["key"], "")
             cell = ws.cell(row=row_idx, column=col_idx, value=value)
             cell.font = missing_font if is_placeholder else data_font
             cell.border = thin_border
+            cell.alignment = center_alignment if col_def["key"] in CENTER_KEYS else data_alignment
 
-            if col_def["key"] in ("question_number", "school", "grade", "answer", "question_type", "question_format"):
-                cell.alignment = center_alignment
-            else:
-                cell.alignment = data_alignment
+    # ── 데이터 행: 각 시험지 그룹별 슬롯 채우기 후 순차 출력 ──
+    row_idx = 2
+    passage_groups: Dict[int, List[int]] = {}
 
-        # 공통지문 병합: placeholder 행은 제외 (passage_group_id가 None이므로 자연 제외)
-        if not is_placeholder and q.passage_group_id is not None:
-            if q.passage_group_id not in passage_groups:
-                passage_groups[q.passage_group_id] = []
-            passage_groups[q.passage_group_id].append(row_idx)
+    for file_key, group_questions in file_groups.items():
+        questions_by_no: Dict[int, QuestionData] = {}
+        for q in group_questions:
+            q_no = int(q.question_number)
+            questions_by_no[q_no] = q
 
-        row_idx += 1
+        max_no = max(questions_by_no.keys()) if questions_by_no else 0
+
+        for no in range(1, max_no + 1):
+            q = questions_by_no.get(no)
+            is_placeholder = q is None
+
+            if is_placeholder:
+                q = QuestionData(
+                    question_number=no,
+                    question_text="[MISSING] 문항 누락",
+                    question_type="missing",
+                    school=file_key[0],
+                    grade=file_key[1],
+                )
+                logger.info(f"누락 문항 placeholder 생성: {file_key[0]} {no}번")
+
+            _write_row(ws, row_idx, q, is_placeholder)
+
+            if not is_placeholder and q.passage_group_id is not None:
+                if q.passage_group_id not in passage_groups:
+                    passage_groups[q.passage_group_id] = []
+                passage_groups[q.passage_group_id].append(row_idx)
+
+            row_idx += 1
 
     # ── int 변환 불가 문항은 말미에 추가 ──
     for q in non_numeric_questions:
-        values = _question_to_row(q)
-        for col_idx, col_def in enumerate(COLUMNS, 1):
-            value = values.get(col_def["key"], "")
-            cell = ws.cell(row=row_idx, column=col_idx, value=value)
-            cell.font = data_font
-            cell.border = thin_border
-            if col_def["key"] in ("question_number", "school", "grade", "answer", "question_type", "question_format"):
-                cell.alignment = center_alignment
-            else:
-                cell.alignment = data_alignment
+        _write_row(ws, row_idx, q)
         if q.passage_group_id is not None:
             if q.passage_group_id not in passage_groups:
                 passage_groups[q.passage_group_id] = []

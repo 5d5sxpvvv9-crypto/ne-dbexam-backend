@@ -40,7 +40,7 @@ TEMP_DIR = os.path.join(os.path.dirname(__file__), "temp_uploads")
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "temp_outputs")
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB
 ALLOWED_EXTENSIONS = {".hwp"}
-MAX_CONCURRENT = 3
+MAX_CONCURRENT = 5
 CLEANUP_MINUTES = 60
 
 os.makedirs(TEMP_DIR, exist_ok=True)
